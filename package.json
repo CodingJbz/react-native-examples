@@ -7,6 +7,8 @@
   },
   "dependencies": {
     "@exponent/react-native-navigator": "^0.1.4",
-    "react-native": "^0.11.4"
+    "lodash": "^3.10.1",
+    "react-native": "^0.11.4",
+    "react-native-userdefaults-ios": "^0.1.3"
   }
 }

@@ -1,20 +1,14 @@
-let YourRouter = {
-  getHomeRoute() {
+import Scenes from './Scenes';
+
+let Router = {
+
+  getRoute(routeName) {
     return {
       getSceneClass() {
-        return require('./ExampleList');
-      }
-    };
-  },
-  
-  getListViewRoute() {
-    return {
-      getSceneClass() {
-        return require('./examples/ListView.js');
+        return Scenes[routeName]
       }
     };
   }
-
 };
 
-export default YourRouter;
+export default Router;

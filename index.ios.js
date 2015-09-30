@@ -16,7 +16,16 @@ var {
   } = React
 
 import ExNavigator from '@exponent/react-native-navigator';
+import UserDefaults from 'react-native-userdefaults-ios';
 import Router from './Router';
+
+  let routeName = "ExampleList"
+
+  UserDefaults.stringForKey("route").then((route) => {
+    if (route) {
+      routeName = route
+    }
+  })
 
 class ReactNativeExamples extends Component {
 
@@ -24,7 +33,7 @@ class ReactNativeExamples extends Component {
     return (
       <ExNavigator
         showNavigationBar={false}
-        initialRoute={Router.getHomeRoute()}
+        initialRoute={Router.getRoute(routeName)}
         style={{ flex: 1 }}
       />
     )

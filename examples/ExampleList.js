@@ -13,26 +13,41 @@ let {
   PixelRatio
 } = React;
 
-import Router from './Router';
+import Router from '../Router';
+import Scenes from '../Scenes';
+import {keys, values, reject, startCase} from 'lodash';
 
-export default class Example extends React.Component {
+export default class ExampleList extends React.Component {
 
   constructor(props) {
     super(props);
 
+    let routes = reject(keys(Scenes).map((name) => {
+      return {
+        getSceneClass() {
+          return Scenes[name]
+        },
+        name: name
+      }
+    }), 'name', 'ExampleList')
+
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+    console.log(routes)
     this.state = {
-      dataSource: ds.cloneWithRows([{name: 'ListView', route: Router.getListViewRoute()}]),
+      dataSource: ds.cloneWithRows(routes),
     };
 
   }
 
   renderRow = (data) => {
+    console.log(data)
+    let name = data.name || data.displayName
     return (
-      <View key={data.name}>
-        <TouchableOpacity onPress={() => this.props.navigator.push(data.route)}>
+      <View key={name}>
+        <TouchableOpacity onPress={() => this.props.navigator.push(data)}>
           <View style={styles.row}>
-            <Text style={styles.rowText}>{data.name}</Text>
+            <Text style={styles.rowText}>{startCase(name)}</Text>
           </View>
         </TouchableOpacity>
         <View style={styles.separator} />
@@ -41,6 +56,7 @@ export default class Example extends React.Component {
   }
 
   render() {
+
     return (
       <View style={styles.container}>
         <Text style={styles.title}>
@@ -71,7 +87,7 @@ var styles = StyleSheet.create({
     margin: 10,
   },
   instructions: {
-    padding: 5,
+    padding: 10,
     fontSize: 16,
     textAlign: 'center',
     color: '#333333',
