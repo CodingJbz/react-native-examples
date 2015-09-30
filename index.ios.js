@@ -22,6 +22,7 @@ import Router from './Router';
   let routeName = "ExampleList"
 
   UserDefaults.stringForKey("route").then((route) => {
+    console.log(route);
     if (route) {
       routeName = route
     }
