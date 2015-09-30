@@ -94,12 +94,12 @@ var styles = StyleSheet.create({
     backgroundColor: '#CCCCCC',
   },
   thumb: {
-    margin: 5,
+    margin: 7,
     width: 64,
     height: 64,
   },
   text: {
-    marginTop: 2,
+    marginTop: 4,
     flex: 1,
   },
 });
