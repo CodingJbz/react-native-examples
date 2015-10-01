@@ -19,25 +19,38 @@ import ExNavigator from '@exponent/react-native-navigator';
 import UserDefaults from 'react-native-userdefaults-ios';
 import Router from './Router';
 
-  let routeName = "ExampleList"
-
-  UserDefaults.stringForKey("route").then((route) => {
-    console.log(route);
-    if (route) {
-      routeName = route
-    }
-  })
-
 class ReactNativeExamples extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      routeName: "ExampleList",
+      loaded: false
+    }
+  }
+
+  componentDidMount() {
+    UserDefaults.stringForKey("route").then((route) => {
+      if (route) {
+        this.setState({routeName: route})
+      }
+      this.setState({loaded: true})
+    })
+  }
+
   render() {
-    return (
-      <ExNavigator
-        showNavigationBar={false}
-        initialRoute={Router.getRoute(routeName)}
-        style={{ flex: 1 }}
-      />
-    )
+    if (this.state.loaded) {
+      return (
+        <ExNavigator
+          showNavigationBar={false}
+          initialRoute={Router.getRoute(this.state.routeName)}
+          style={{ flex: 1 }}
+        />
+      )
+    } else {
+      return null
+    }
   }
 }
 
